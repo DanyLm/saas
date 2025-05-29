@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Http\Middleware;
 
 use Closure;
@@ -8,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Code modifed from: https://github.com/laravel/cashier-paddle/blob/2.x/src/Http/Middleware/VerifyWebhookSignature.php
+ *
  * @see https://developer.paddle.com/webhook-reference/verifying-webhooks
  */
 class VerifyPaddleWebhookSignature
@@ -20,8 +23,6 @@ class VerifyPaddleWebhookSignature
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return \Illuminate\Http\Response
      *
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
@@ -38,15 +39,41 @@ class VerifyPaddleWebhookSignature
     }
 
     /**
+     * Parse the signature header.
+     */
+    public function parseSignature(string $header): array
+    {
+        $components = [
+            'ts' => 0,
+            'hashes' => [],
+        ];
+
+        foreach (explode(';', $header) as $part) {
+            if (str_contains($part, '=')) {
+                [$key, $value] = explode('=', $part, 2);
+
+                match ($key) {
+                    'ts' => $components['ts'] = (int) $value,
+                    'h1' => $components['hashes']['h1'][] = $value,
+                };
+            }
+        }
+
+        return [
+            $components['ts'],
+            $components['hashes'],
+        ];
+    }
+
+    /**
      * Validate signature.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  string  $signature
      * @return bool
      */
 
-    //the signature is not $signature[0] it's $signature
-    //the true it's false and false it's true when if ($this->isInvalidSignature($request, $signature)) { throw new AccessDeniedHttpException('Invalid webhook signature.'); }
+    // the signature is not $signature[0] it's $signature
+    // the true it's false and false it's true when if ($this->isInvalidSignature($request, $signature)) { throw new AccessDeniedHttpException('Invalid webhook signature.'); }
     protected function isInvalidSignature(Request $request, $signature)
     {
         if (empty($signature)) {
@@ -75,35 +102,5 @@ class VerifyPaddleWebhookSignature
         }
 
         return true;
-    }
-
-    /**
-     * Parse the signature header.
-     *
-     * @param  string  $header
-     * @return array
-     */
-    public function parseSignature(string $header): array
-    {
-        $components = [
-            'ts' => 0,
-            'hashes' => [],
-        ];
-
-        foreach (explode(';', $header) as $part) {
-            if (str_contains($part, '=')) {
-                [$key, $value] = explode('=', $part, 2);
-
-                match ($key) {
-                    'ts' => $components['ts'] = (int) $value,
-                    'h1' => $components['hashes']['h1'][] = $value,
-                };
-            }
-        }
-
-        return [
-            $components['ts'],
-            $components['hashes'],
-        ];
     }
 }

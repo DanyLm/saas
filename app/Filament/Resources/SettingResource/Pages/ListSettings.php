@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\SettingResource\Pages;
 
-use Illuminate\Support\Facades\Cache;
 use App\Filament\Resources\SettingResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Support\Facades\Cache;
 
 class ListSettings extends ListRecords
 {

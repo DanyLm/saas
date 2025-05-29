@@ -1,6 +1,6 @@
 @props([
-    'color' => 'blue', 
-    'size' => 'md', 
+    'color' => 'blue',
+    'size' => 'md',
     'tag' => 'button',
     'href' => '/',
     'submit' => false,

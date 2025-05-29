@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Console\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
+use Exception;
 use GuzzleHttp\Client;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class CreatePluginCommand extends Command
 {
@@ -24,6 +27,7 @@ class CreatePluginCommand extends Command
 
         if (File::exists($pluginPath)) {
             $this->error("A plugin with the name '{$folderName}' already exists.");
+
             return;
         }
 
@@ -64,7 +68,7 @@ class {$className}Plugin extends Plugin
 
     public function register()
     {
-        
+
     }
 
     public function boot()
@@ -96,11 +100,11 @@ EOT;
 
     private function createViewFiles($folderName, $path)
     {
-        File::put("{$path}/resources/views/home.blade.php", "<p>Hello World</p>");
-        
-        $exampleContent = <<<EOT
+        File::put("{$path}/resources/views/home.blade.php", '<p>Hello World</p>');
+
+        $exampleContent = <<<'EOT'
 <div>
-    {{ \$message }}
+    {{ $message }}
 </div>
 EOT;
         File::put("{$path}/resources/views/livewire/{$folderName}.blade.php", $exampleContent);
@@ -143,7 +147,7 @@ class {$className} extends Component
     public function render()
     {
         \$layout = (auth()->guest()) ? 'theme::components.layouts.marketing' : 'theme::components.layouts.app';
-        
+
         return view('{$folderName}::livewire.{$folderName}')->layout(\$layout);
     }
 }
@@ -166,9 +170,9 @@ EOT;
         try {
             $response = $client->get($imageUrl);
             File::put($imagePath, $response->getBody());
-            $this->info("Placeholder image downloaded successfully.");
-        } catch (\Exception $e) {
-            $this->warn("Failed to download placeholder image: " . $e->getMessage());
+            $this->info('Placeholder image downloaded successfully.');
+        } catch (Exception $e) {
+            $this->warn('Failed to download placeholder image: '.$e->getMessage());
         }
     }
 }

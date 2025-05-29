@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'types' => [
         'TextInput' => 'Text Input',
@@ -16,6 +18,6 @@ return [
         'TimePicker' => 'Time Picker',
         'FileUpload' => 'File Upload',
         'TagsInput' => 'Tags Input',
-        'ColorPicker' => 'Color Picker'
-    ]
+        'ColorPicker' => 'Color Picker',
+    ],
 ];

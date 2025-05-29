@@ -5,11 +5,11 @@
             <span class="hidden lg:inline">Add Folder</span>
         </button>
     </x-slot>
-    
+
     <x-slot name="heading">
         Folder Name
     </x-slot>
-    
+
     <form wire:submit="createNewFolder">
         <x-filament::input.wrapper label="Folder Name">
             <x-filament::input autofocus type="text" id="folderName" label="folder name" wire:model="folderName" />
@@ -18,7 +18,7 @@
             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
         @enderror
     </form>
-    
+
     <x-slot name="footer">
         <x-filament::button type="submit" wire:click="createNewFolder">
             Create Folder

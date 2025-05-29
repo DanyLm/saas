@@ -1,20 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\UserResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource
 {
@@ -56,10 +53,9 @@ class UserResource extends Resource
                 Forms\Components\DateTimePicker::make('trial_ends_at'),
                 Forms\Components\TextInput::make('verification_code')
                     ->maxLength(191),
-                Forms\Components\Toggle::make('verified')
+                Forms\Components\Toggle::make('verified'),
             ]);
     }
-
 
     public static function table(Table $table): Table
     {
@@ -73,10 +69,10 @@ class UserResource extends Resource
                     ->circular()
                     ->defaultImageUrl(url('storage/demo/default.png')),
                 Tables\Columns\TextColumn::make('username')
-                    ->searchable()
+                    ->searchable(),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -95,7 +91,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

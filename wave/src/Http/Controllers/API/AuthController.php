@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Wave\ApiKey;
-use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -50,21 +52,22 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function token(){
+    public function token()
+    {
         $request = app('request');
 
-        if(isset($request->key)){
+        if (isset($request->key)) {
 
             $key = ApiKey::where('key', '=', $request->key)->first();
 
-            if(isset($key->id)){
+            if (isset($key->id)) {
                 $key->update([
                     'last_used_at' => Carbon::now(),
                 ]);
+
                 return response()->json(['access_token' => JWTAuth::fromUser($key->user, ['exp' => config('wave.api.key_token_expires', 1)])]);
-            } else {
-                abort('400', 'Invalid Api Key');
             }
+            abort('400', 'Invalid Api Key');
 
         } else {
             abort('401', 'Unauthorized');
@@ -80,22 +83,6 @@ class AuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());
-    }
-
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => config('wave.api.auth_token_expires', 60)
-        ]);
     }
 
     public function register(Request $request)
@@ -122,6 +109,21 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token);
 
+    }
+
+    /**
+     * Get the token array structure.
+     *
+     * @param  string  $token
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => config('wave.api.auth_token_expires', 60),
+        ]);
     }
 
     protected function validator(array $data)

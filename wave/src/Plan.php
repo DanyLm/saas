@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Str;
 
 class Plan extends Model
 {

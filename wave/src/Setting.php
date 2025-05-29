@@ -1,17 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Setting extends Model
 {
+    public $timestamps = false;
+
     protected $table = 'settings';
 
     protected $guarded = [];
 
-    public $timestamps = false;
+    public static function get($key, $default = null)
+    {
+        $settings = Cache::rememberForever('wave_settings', function () {
+            return self::pluck('value', 'key')->toArray();
+        });
+
+        return $settings[$key] ?? $default;
+    }
 
     protected static function booted()
     {
@@ -23,14 +34,4 @@ class Setting extends Model
             Cache::forget('wave_settings');
         });
     }
-
-    public static function get($key, $default = null)
-    {
-        $settings = Cache::rememberForever('wave_settings', function () {
-            return self::pluck('value', 'key')->toArray();
-        });
-
-        return $settings[$key] ?? $default;
-    }
-
 }

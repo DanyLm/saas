@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Wave\Post as WavePost;
-use Illuminate\Support\Facades\Storage;
 
 class Post extends WavePost
 {

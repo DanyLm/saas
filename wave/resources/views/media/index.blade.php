@@ -23,7 +23,7 @@ use Filament\Actions\DeleteAction;
         use WithFileUploads;
 
         public $record;
-        
+
         public $upload;
         public $uploadFile;
 
@@ -50,7 +50,7 @@ use Filament\Actions\DeleteAction;
             $this->loadFilesInCurrentFolder();
             $this->breadcrumbsRefresh();
         }
-        
+
         #[Computed]
         public function isRootDirectory()
         {
@@ -78,7 +78,7 @@ use Filament\Actions\DeleteAction;
         private function loadFilesInCurrentFolder(){
             $this->files = $this->getFilesInDir($this->folder);
         }
-    
+
         public function storage($disk = false){
             // We want to get the class from the Storage facade, this is probably Illuminate\Filesystem\FilesystemManager
             $storageClass = get_class(\Illuminate\Support\Facades\Storage::getFacadeRoot());
@@ -171,7 +171,7 @@ use Filament\Actions\DeleteAction;
 
                 return $files;
         }
-        
+
 
         public function goToDirectory($path){
             if($path == '/'){
@@ -226,17 +226,17 @@ use Filament\Actions\DeleteAction;
                 if($this->isRootDirectory()){
                     $folderInDirectory = $this->getFoldersInCurrentDirectory();
                     $this->destinationFolder = $folderInDirectory[0];
-                } 
+                }
             }
 
-            
+
             $this->validate([
                 'selectedFile' => 'required|min:1',
             ]);
 
 
             $sourcePath = $this->stripDoubleSlashesFromString($this->folder . '/' . $this->selectedFile['name']);
-    
+
             if ($this->destinationFolder === '..') {
                 $destinationPath = $this->stripDoubleSlashesFromString(dirname($this->folder) . '/' . $this->selectedFile['name']);
             } else {
@@ -503,7 +503,7 @@ use Filament\Actions\DeleteAction;
 
             while (true) {
                 $destination = $this->stripDoubleSlashesFromString($destinationDirectory . '/' . $newFilename . ($extension ? '.' . $extension : ''));
-                
+
                 if (!File::exists($destination)) {
                     return $destination;
                 }
@@ -528,18 +528,18 @@ use Filament\Actions\DeleteAction;
         {
             // Construct the full current path
             $fullCurrentPath = $this->stripDoubleSlashesFromString($this->folder . '/' . $currentPath);
-            
+
             // Get the directory of the current file
             $directory = dirname($fullCurrentPath);
-            
+
             // Get the current file's information
             $currentFileInfo = pathinfo($fullCurrentPath);
             $currentExtension = $currentFileInfo['extension'] ?? '';
-            
+
             // Check if the new name already contains the extension
             $newFileInfo = pathinfo($newName);
             $newExtension = $newFileInfo['extension'] ?? '';
-            
+
             // Determine the final new name
             if ($newExtension && strtolower($newExtension) === strtolower($currentExtension)) {
                 // If the new name already has the correct extension, use it as is
@@ -548,7 +548,7 @@ use Filament\Actions\DeleteAction;
                 // If not, append the current extension
                 $finalNewName = $newFileInfo['filename'] . ($currentExtension ? '.' . $currentExtension : '');
             }
-            
+
             // Construct the new full path
             $newPath = $this->stripDoubleSlashesFromString($directory . '/' . $finalNewName);
 
@@ -609,12 +609,12 @@ use Filament\Actions\DeleteAction;
 
             foreach ($allFiles as $file) {
                 $fileName = strtolower(basename($file)); // Get the filename and convert to lowercase
-                
+
                 // Check if the filename contains a sequence of characters from the search term
                 if (strlen($search) >= $minMatchLength && stripos($fileName, $search) !== false) {
-                    
+
                     $results[] = [
-                        
+
                         'filename' => basename($file),
                         'type' => Storage::mimeType($file) == 'dir' ? 'folder' : Storage::mimeType($file),
                         'url' => $this->storage($this->disk)->url($file),
@@ -644,12 +644,12 @@ use Filament\Actions\DeleteAction;
     @volt('media')
         <div class="flex overflow-hidden relative justify-start items-start w-full h-full bg-white rounded-xl border shadow-sm border-zinc-200/50">
             <div class="w-full h-full">
-                <div x-data="{ 
+                <div x-data="{
                         active: @entangle('selectedFile'),
                         search: @entangle('search'),
                         searchResults: @entangle('searchResults'),
                         clientSideActive: false,
-                        files: @entangle('files'), 
+                        files: @entangle('files'),
                         storageURL: @entangle('storageURL'),
                         activeFileDrawer: true,
                         fileOrFolderCopied: @entangle('fileOrFolderCopied'),
@@ -659,7 +659,7 @@ use Filament\Actions\DeleteAction;
                             if(!this.active){
                                 return false;
                             }
-                            
+
                             return this.active.relative_path == file.relative_path;
                         },
                         activeFileSelected() {
@@ -725,7 +725,7 @@ use Filament\Actions\DeleteAction;
                                 });
                             }, 1);
                         },
-                        isUploading: false, 
+                        isUploading: false,
                         progress: 0
                     }"
                     x-init="
@@ -746,7 +746,7 @@ use Filament\Actions\DeleteAction;
                     x-on:keydown.window="handleKeydown"
                     @trigger-delete-action.window="$wire.triggerDeleteAction"
                     class="flex flex-col justify-start items-center w-full h-full bg-white">
-                    
+
                     <div class="relative p-5 pb-0 w-full bg-white border-b border-zinc-200/70">
                         @include('wave::media.views.header')
                         @include('wave::media.views.breadcrumbs')
@@ -759,9 +759,9 @@ use Filament\Actions\DeleteAction;
                     @include('wave::media.views.full-screen-file-modal')
                 </div>
             </div>
-            
+
         <x-filament-actions::modals />
         </div>
     @endvolt
-    
+
 </x-filament-panels::page>

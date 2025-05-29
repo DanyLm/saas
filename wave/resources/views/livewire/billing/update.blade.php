@@ -1,5 +1,5 @@
 <div class="relative w-full h-auto">
-    @if(config('wave.billing_provider') == 'paddle')
+    @if (config('wave.billing_provider') == 'paddle')
         <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
         <script>
             Paddle.Initialize({
@@ -19,7 +19,7 @@
             }
         </script>
 
-        @if($error_retrieving_data)
+        @if ($error_retrieving_data)
             <div class="relative w-full rounded-lg border border-transparent bg-red-50 p-4 [&>svg]:absolute [&>svg]:text-foreground [&>svg]:left-4 [&>svg]:top-4 [&>svg+div]:translate-y-[-3px] [&:has(svg)]:pl-11 text-red-600">
                 <svg class="w-5 h-5 -translate-y-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
                 <h5 class="mb-1 font-medium tracking-tight leading-none">Payment Provider Error</h5>
@@ -28,7 +28,7 @@
         @endif
 
         <div class="flex items-start space-x-2">
-            
+
             <x-filament::modal width="lg" id="update-plan-modal" slide-over>
                 <x-slot name="trigger">
                         <x-button x-on:click="setTimeout(function(){ window.dispatchEvent(new CustomEvent('reposition-interval-marker')); }, 10);" color="primary" class="flex-shrink-0">Change My Plan</x-button>
@@ -41,7 +41,7 @@
 
             <x-button color="primary" href="{{ $update_url }}" tag="a" class="flex-shrink-0">Update Payment Details</x-button>
 
-            @if($cancellation_scheduled)
+            @if ($cancellation_scheduled)
                 <p class="block flex-1 text-red-600">Your subscription will be canceled on {{ \Carbon\Carbon::parse($subscription_ends_at)->format('F jS, Y') }}. To re-activate it, please <button wire:click="cancelImmediately" wire:confirm="This will cancel your subscription immediately, are you sure?" class="underline">cancel immediately</button> and place a new order.
             @else
                 <x-filament::modal width="lg" id="cancel-modal">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="flex relative items-center space-x-3 w-full">
-                            <x-button x-on:click="$dispatch('close-modal', { id: 'cancel-modal' })" color="secondary" class="w-1/2">No Thanks</x-button> 
+                            <x-button x-on:click="$dispatch('close-modal', { id: 'cancel-modal' })" color="secondary" class="w-1/2">No Thanks</x-button>
                             <x-button wire:click="cancel" color="danger" class="w-1/2">Cancel Subscription</x-button>
                             {{-- <x-button tag="a" href="{{ $cancel_url }}" color="danger" class="w-1/2">Cancel Subscription</x-button> --}}
                         </div>
@@ -67,11 +67,11 @@
                     {{-- Modal content --}}
                 </x-filament::modal>
             @endif
-            
+
         </div>
     @else
         <x-button :href="route('stripe.portal')" tag="a">Manage Subscription</x-button>
-        @if(!is_null($subscription->ends_at))
+        @if (!is_null($subscription->ends_at))
             <p class="my-3 text-red-600">Your subscription is scheduled to cancel on {{ \Carbon\Carbon::parse($subscription_ends_at)->format('F jS, Y') }}. Click the manage subscription button to re-activate/renew your subscription.
         @endif
     @endif

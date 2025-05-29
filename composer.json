@@ -32,13 +32,19 @@
     "require-dev": {
         "alebatistella/duskapiconf": "^1.2",
         "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^3.75",
+        "larastan/larastan": "^3.3",
         "laravel/dusk": "^8.0",
+        "laravel/pint": "^1.22",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "6.4.0|^7.0|^8.1",
         "pestphp/pest": "^3.4",
         "pestphp/pest-plugin-laravel": "^3.0",
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^11.0",
-        "spatie/laravel-ignition": "^2.0"
+        "rector/rector": "^2.0",
+        "spatie/laravel-ignition": "^2.0",
+        "tightenco/duster": "^3.2"
     },
     "autoload": {
         "psr-4": {

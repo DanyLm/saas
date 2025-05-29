@@ -1,0 +1,14 @@
+{
+    "include": [
+        "app",
+        "config",
+        "database",
+        "boostrap",
+        "resources",
+        "wave",
+        "routes"
+    ],
+    "exclude": [
+        "tests/"
+    ]
+}

@@ -1,19 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PlanResource\Pages;
-use App\Filament\Resources\PlanResource\RelationManagers;
-use Wave\Plan;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\Section;
 use Spatie\Permission\Models\Role;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Wave\Plan;
 
 class PlanResource extends Resource
 {
@@ -50,7 +49,7 @@ class PlanResource extends Resource
                     ])->columns(2),
                 Section::make('Plan Pricing')
                     ->description('Add the pricing details for your plans below')
-                    ->schema([ 
+                    ->schema([
                         Forms\Components\TextInput::make('monthly_price_id')
                             ->label('Monthly Price ID')
                             ->hint('Stripe/Paddle ID')
@@ -76,7 +75,7 @@ class PlanResource extends Resource
                         Forms\Components\Toggle::make('active')
                             ->required(),
                         Forms\Components\Toggle::make('default')
-                            ->required()
+                            ->required(),
                     ])->columns(2),
                 Section::make('Associated Role')
                     ->description('When the user subscribes to this plan, what role should they be assigned?')
@@ -86,7 +85,7 @@ class PlanResource extends Resource
                             ->options(Role::all()->pluck('name', 'id'))
                             ->searchable()
                             ->required(),
-                ])
+                    ]),
             ]);
     }
 
@@ -100,7 +99,7 @@ class PlanResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\BooleanColumn::make('active')
-                    ->sortable(),    
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -111,7 +110,7 @@ class PlanResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -127,7 +126,7 @@ class PlanResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

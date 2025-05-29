@@ -1,4 +1,4 @@
-@if(setting('digital-ocean.enabled'))
+@if (setting('digital-ocean.enabled'))
 
 @endif
 

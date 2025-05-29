@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Traits;
 
 use Illuminate\Support\Str;
@@ -9,11 +11,12 @@ trait HasDynamicFields
     private function dynamicFields($fields)
     {
         $dynamicFields = [];
+
         foreach ($fields as $field) {
             $key = Str::slug($field['label']);
 
-            if (!class_exists($field['type'])) {
-                $fieldType = '\Filament\Forms\Components\\' . $field['type'];
+            if (! class_exists($field['type'])) {
+                $fieldType = '\Filament\Forms\Components\\'.$field['type'];
             } else {
                 $fieldType = $field['type'];
             }
@@ -44,7 +47,8 @@ trait HasDynamicFields
             $keyValue = auth()->user()->profileKeyValues->where('key', $key)->first();
 
             $value = $keyValue->value ?? '';
-            if (!empty($value)) {
+
+            if (! empty($value)) {
                 if (json_decode($value, true) !== null) {
                     $value = json_decode($value, true);
                 }
@@ -62,11 +66,13 @@ trait HasDynamicFields
     private function saveDynamicFields($fields)
     {
         $state = $this->form->getState();
+
         foreach ($fields as $field) {
             $key = Str::slug($field['label']);
 
             if (isset($state[$key])) {
                 $value = $state[$key];
+
                 if (is_array($state[$key])) {
                     $value = json_encode($state[$key]);
                 }
@@ -75,4 +81,3 @@ trait HasDynamicFields
         }
     }
 }
-

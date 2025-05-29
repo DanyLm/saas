@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,7 +36,7 @@ class Form extends Model
     /**
      * Get a specific field's configuration.
      *
-     * @param string $fieldKey
+     * @param  string  $fieldKey
      * @return array|null
      */
     public function getFieldConfig($fieldKey)

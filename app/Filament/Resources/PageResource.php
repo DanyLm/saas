@@ -1,20 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PageResource\Pages;
-use App\Filament\Resources\PageResource\RelationManagers;
 use App\Models\User;
-use Wave\Page;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Set;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Wave\Page;
 
 class PageResource extends Resource
 {
@@ -48,7 +47,7 @@ class PageResource extends Resource
                     ->label('Author')
                     ->options(
                         User::all()
-                            ->mapWithKeys(fn($user) => [
+                            ->mapWithKeys(fn ($user) => [
                                 $user->id => $user->name
                                     ?? $user->username
                                     ?? $user->email,
@@ -89,7 +88,7 @@ class PageResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -105,7 +104,7 @@ class PageResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

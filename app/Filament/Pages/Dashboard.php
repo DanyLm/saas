@@ -1,9 +1,11 @@
 <?php
- 
+
+declare(strict_types=1);
+
 namespace App\Filament\Pages;
 
 use Filament\Panel;
- 
+
 class Dashboard extends \Filament\Pages\Dashboard
 {
     protected static ?string $navigationIcon = 'phosphor-house-duotone';

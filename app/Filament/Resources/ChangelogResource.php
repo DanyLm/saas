@@ -1,17 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ChangelogResource\Pages;
-use App\Filament\Resources\ChangelogResource\RelationManagers;
-use Wave\Changelog;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Wave\Changelog;
 
 class ChangelogResource extends Resource
 {
@@ -55,7 +54,7 @@ class ChangelogResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -71,7 +70,7 @@ class ChangelogResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 

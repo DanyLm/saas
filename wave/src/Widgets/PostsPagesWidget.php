@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Widgets;
 
 use Filament\Widgets\Widget;

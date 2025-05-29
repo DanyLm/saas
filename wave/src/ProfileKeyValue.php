@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave;
 
 use Illuminate\Database\Eloquent\Model;
 
 class ProfileKeyValue extends Model
 {
-    protected $table = 'profile_key_values';
-
     public $timestamps = false;
+
+    protected $table = 'profile_key_values';
 
     protected $fillable = [
         'type',

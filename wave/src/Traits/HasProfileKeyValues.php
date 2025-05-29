@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Traits;
 
 use Wave\ProfileKeyValue;
@@ -16,11 +18,11 @@ trait HasProfileKeyValues
         return $this->profileKeyValues()->where('key', '=', $key)->first();
     }
 
-    public function setProfileKeyValue($key, $value, $type='text')
+    public function setProfileKeyValue($key, $value, $type = 'text')
     {
         $keyValue = $this->profileKeyValue($key);
 
-        if (!$keyValue) {
+        if (! $keyValue) {
             $keyValue = new ProfileKeyValue();
             $keyValue->key = $key;
             $keyValue->keyvalue_id = $this->id;

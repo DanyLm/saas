@@ -9,9 +9,9 @@
             <input id="search" x-on:focus="searchFocused=true;" name="search" x-model="search" x-on:keyup="if(search.length >= 2){ $wire.searchStorageForFile() }" class="block py-1.5 pr-3 pl-8 w-full text-sm placeholder-gray-500 bg-white rounded-md border-0 ring-1 ring-gray-200 focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-300 sm:text-sm" placeholder="Search" type="search">
         </div>
     </div>
-    
+
     <div x-show="search && search.length >= 2 && searchFocused" class="absolute top-0 z-40 w-full rounded-md ring-1 backdrop-blur-sm translate-y-9 ring-zinc-200 bg-white/50">
-        
+
             <div x-show="searchResults" class="p-1 space-y-1">
                 <template x-for="searchResult in searchResults" :key="searchResult.relative_path">
                     <div x-on:click="window.dispatchEvent(new CustomEvent('open-file-modal', { detail: { file: searchResult }}));" class="flex justify-between items-center px-3 py-1 w-full rounded-md cursor-pointer text-zinc-900 hover:text-white hover:bg-indigo-500" >
@@ -22,6 +22,6 @@
             </div>
 
             <p x-show="searchResults == '' || !searchResults" class="p-8 w-full text-sm font-medium text-center text-zinc-400">No Results found for "<span x-text="search"></span>"</p>
-        
+
     </div>
 </div>

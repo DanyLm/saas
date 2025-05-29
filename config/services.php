@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -33,6 +35,6 @@ return [
 
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
-    ]
+    ],
 
 ];

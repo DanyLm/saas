@@ -1,0 +1,21 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: max
+
+    parallel:
+       maximumNumberOfProcesses: 6
+    tmpDir: storage/tmp/phpstan
+
+    paths:
+        - app
+        - bootstrap
+        - wave
+        - database
+        - routes
+        - config
+
+    ignoreErrors:
+        - '#non-falsy-string#'
+

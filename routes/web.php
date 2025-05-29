@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +13,6 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
 use Wave\Facades\Wave;
 
 // Wave routes

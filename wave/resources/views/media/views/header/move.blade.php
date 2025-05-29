@@ -5,11 +5,11 @@
             <span class="hidden xl:inline">Move</span>
         </button>
     </x-slot>
-    
+
     <x-slot name="heading">
         Move to Folder
     </x-slot>
-    
+
     <form wire:submit="moveFileOrFolder">
         <x-filament::input.wrapper>
             <x-filament::input.select
@@ -18,18 +18,18 @@
                 placeholder="Select a folder"
             >
                 <option value="" disabled selected>Select a folder</option>
-                @if(!$this->isRootDirectory())
+                @if (!$this->isRootDirectory())
                     <option value=".." selected>Previous Folder (../)</option>
                 @endif
-                @foreach($this->getFoldersInCurrentDirectory() as $folder)
-                    @if($selectedFile != null && $selectedFile['name'] != $folder)
+                @foreach ($this->getFoldersInCurrentDirectory() as $folder)
+                    @if ($selectedFile != null && $selectedFile['name'] != $folder)
                         <option value="{{ $folder }}">{{ $folder }}</option>
                     @endif
                 @endforeach
             </x-filament::input.select>
         </x-filament::input.wrapper>
     </form>
-    
+
     <x-slot name="footer">
         <x-filament::button type="submit" wire:click="moveFileOrFolder">
             Move

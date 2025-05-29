@@ -1,11 +1,11 @@
 <div wire:ignore x-show="billing_cycle_available=='both'"
     x-init="
-        setTimeout(function(){ 
-            toggleRepositionMarker($refs.monthly); 
+        setTimeout(function(){
+            toggleRepositionMarker($refs.monthly);
             $refs.marker.classList.remove('opacity-0');
-            setTimeout(function(){ 
+            setTimeout(function(){
                 $refs.marker.classList.add('duration-300', 'ease-out');
-            }, 10); 
+            }, 10);
         }, 1);
     "
     @reposition-interval-marker.window="toggleRepositionMarker($refs.monthly);"
@@ -15,7 +15,7 @@
         <button x-ref="monthly" @click="toggleButtonClicked($el, 'month');" type="button"
             :class="{ 'text-white' : billing_cycle_selected == 'month', 'text-gray-500 dark:text-neutral-400' : billing_cycle_selected != 'month' }"
             class="relative z-20 inline-flex items-center justify-center w-full h-8 px-3 text-xs font-semibold transition-all cursor-pointer whitespace-nowrap">Monthly</button>
-        <button x-ref="yearly" @click="toggleButtonClicked($el, 'year');" type="button" 
+        <button x-ref="yearly" @click="toggleButtonClicked($el, 'year');" type="button"
             :class="{ 'text-white' : billing_cycle_selected == 'year', 'text-gray-500 dark:text-neutral-400' : billing_cycle_selected != 'year' }"
             class="relative z-20 inline-flex items-center justify-center w-full h-8 px-3 text-xs font-semibold transition-all rounded-md cursor-pointer whitespace-nowrap">Yearly</button>
         <div x-ref="marker" class="absolute left-0 z-10 w-1/2 h-full opacity-0" x-cloak>

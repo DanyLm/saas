@@ -1,24 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use App\Models\User;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        \DB::table('users')->delete();
+        DB::table('users')->delete();
 
-        \DB::table('users')->insert([
+        DB::table('users')->insert([
             'id' => 1,
             'name' => 'ChattingHub Admin',
             'email' => 'admin@chattinghub.com',
@@ -28,8 +26,8 @@ class UsersTableSeeder extends Seeder
             'remember_token' => '4oXDVo48Lm1pc4j7NkWI9cMO4hv5OIEJFMrqjSCKQsIwWMGRFYDvNpdioBfo',
             'created_at' => '2017-11-21 16:07:22',
             'updated_at' => '2018-09-22 23:34:02',
-            'trial_ends_at' => NULL,
-            'verification_code' => NULL,
+            'trial_ends_at' => null,
+            'verification_code' => null,
             'verified' => 1,
         ]);
 

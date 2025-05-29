@@ -1,4 +1,4 @@
-@if(app()->isLocal())
+@if (app()->isLocal())
 
     <!DOCTYPE html>
     <html lang="en">
@@ -11,10 +11,10 @@
     </head>
     <body class="bg-zinc-50">
 
-        @if(Request::get('complete'))
+        @if (Request::get('complete'))
 
             @php
-            
+
 
                 \Illuminate\Support\Facades\Artisan::call('db:seed', [
                 '--force' => true

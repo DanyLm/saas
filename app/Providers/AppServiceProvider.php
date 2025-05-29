@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
+use Exception;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,15 +18,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->environment() == 'production') {
             $this->app['request']->server->set('HTTPS', true);
@@ -31,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->setSchemaDefaultLength();
 
-        Validator::extend('base64image', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('base64image', function ($attribute, $value, $parameters, $validator): bool {
             $explode = explode(',', $value);
             $allow = ['png', 'jpg', 'svg', 'jpeg'];
             $format = str_replace(
@@ -47,16 +48,12 @@ class AppServiceProvider extends ServiceProvider
             );
 
             // check file format
-            if (!in_array($format, $allow)) {
+            if (! in_array($format, $allow)) {
                 return false;
             }
 
             // check base64 format
-            if (!preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $explode[1])) {
-                return false;
-            }
-
-            return true;
+            return (bool) preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $explode[1]);
         });
     }
 
@@ -64,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             Schema::defaultStringLength(191);
+        } catch (Exception) {
         }
-        catch (\Exception $exception){}
     }
 }

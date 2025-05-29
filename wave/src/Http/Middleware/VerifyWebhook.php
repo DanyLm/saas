@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Http\Middleware;
 
 use Closure;
@@ -13,7 +15,6 @@ class VerifyWebhook
      * @see https://developer.paddle.com/webhook-reference/ZG9jOjI1MzUzOTg2-verifying-webhooks
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -24,8 +25,8 @@ class VerifyWebhook
         ksort($fields);
 
         foreach ($fields as $k => $v) {
-            if (!in_array(gettype($v), array('object', 'array'))) {
-                $fields[$k] = "$v";
+            if (! in_array(gettype($v), ['object', 'array'])) {
+                $fields[$k] = "{$v}";
             }
         }
 

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Laravel\Folio\Folio;
 
 class FolioServiceProvider extends ServiceProvider
 {
@@ -12,7 +13,7 @@ class FolioServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -20,6 +21,6 @@ class FolioServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+
     }
 }

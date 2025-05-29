@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\FormsResource\Pages;
 
 use App\Filament\Resources\FormsResource;
@@ -26,7 +28,7 @@ class EditForms extends EditRecord
         }
 
         // dd($data['fields']);
-        
+
         // foreach($data['fields'] as $field){
         //     $fields[] = json_decode($field, true);
         // }

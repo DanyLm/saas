@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Overrides;
 
 use Illuminate\Foundation\Vite as BaseVite;

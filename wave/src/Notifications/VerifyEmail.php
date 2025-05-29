@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Wave\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class VerifyEmail extends Notification
 {
     use Queueable;
 
     public $user;
+
     /**
      * Create a new notification instance.
      *
@@ -43,10 +45,10 @@ class VerifyEmail extends Notification
     {
         $url = url('/user/verify/'.$this->user->verification_code);
 
-        return (new MailMessage)
-                    ->line('Thanks for signing up, but before you can continue we need to verify your email.')
-                    ->action('Verify Email', $url)
-                    ->line('Thanks! See you soon.');
+        return (new MailMessage())
+            ->line('Thanks for signing up, but before you can continue we need to verify your email.')
+            ->action('Verify Email', $url)
+            ->line('Thanks! See you soon.');
 
     }
 
@@ -59,7 +61,7 @@ class VerifyEmail extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+
         ];
     }
 }
