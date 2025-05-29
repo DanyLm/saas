@@ -33,6 +33,11 @@ Last things, you needs to set up migration (database) and default data
 php artisan migrate:fresh && php artisan db:seed
 ```
 
+## Login
+
+- Username : `admin@chattinghub.com`
+- Password : `password`
+
 ## Full documentation of this Saas
 
 
